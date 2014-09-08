@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "Open Layers 3",
   "main": [
-	"src/ol/ol.js",
+	"build/ol.js",
 	"css/ol.css"
 	],
   "ignore": [
