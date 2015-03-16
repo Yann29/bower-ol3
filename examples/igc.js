@@ -1,21 +1,3 @@
-goog.require('ol.Attribution');
-goog.require('ol.Feature');
-goog.require('ol.FeatureOverlay');
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.control');
-goog.require('ol.geom.LineString');
-goog.require('ol.geom.Point');
-goog.require('ol.layer.Tile');
-goog.require('ol.layer.Vector');
-goog.require('ol.source.IGC');
-goog.require('ol.source.OSM');
-goog.require('ol.style.Circle');
-goog.require('ol.style.Fill');
-goog.require('ol.style.Stroke');
-goog.require('ol.style.Style');
-
-
 var colors = {
   'Clement Latour': 'rgba(0, 0, 255, 0.7)',
   'Damien de Baesnt': 'rgba(0, 215, 255, 0.7)',
@@ -73,7 +55,7 @@ var map = new ol.Map({
             html: 'All maps &copy; ' +
                 '<a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
           }),
-          ol.source.OSM.DATA_ATTRIBUTION
+          ol.source.OSM.ATTRIBUTION
         ],
         url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
       })
@@ -126,7 +108,10 @@ var displaySnap = function(coordinate) {
   map.render();
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
   var coordinate = map.getEventCoordinate(evt.originalEvent);
   displaySnap(coordinate);
 });

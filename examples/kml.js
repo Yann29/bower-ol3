@@ -1,12 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.format.KML');
-goog.require('ol.layer.Tile');
-goog.require('ol.layer.Vector');
-goog.require('ol.proj');
-goog.require('ol.source.BingMaps');
-goog.require('ol.source.KML');
-
 var projection = ol.proj.get('EPSG:3857');
 
 var raster = new ol.layer.Tile({
@@ -52,7 +43,10 @@ var displayFeatureInfo = function(pixel) {
   }
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
   var pixel = map.getEventPixel(evt.originalEvent);
   displayFeatureInfo(pixel);
 });
@@ -73,9 +67,7 @@ if ('download' in exportKMLElement) {
         clone.getGeometry().transform(projection, 'EPSG:4326');
         features.push(clone);
       });
-      var node = new ol.format.KML().writeFeatures(features);
-      var string = new XMLSerializer().serializeToString(
-          /** @type {Node} */ (node));
+      var string = new ol.format.KML().writeFeatures(features);
       var base64 = exampleNS.strToBase64(string);
       exportKMLElement.href =
           'data:application/vnd.google-earth.kml+xml;base64,' + base64;

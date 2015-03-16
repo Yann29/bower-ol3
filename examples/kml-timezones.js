@@ -1,14 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.layer.Tile');
-goog.require('ol.layer.Vector');
-goog.require('ol.source.KML');
-goog.require('ol.source.Stamen');
-goog.require('ol.style.Fill');
-goog.require('ol.style.Stroke');
-goog.require('ol.style.Style');
-
-
 /*
  * Compute the style of the feature.  Here we want the opacity of polygons to
  * be based on the offset from local noon.  For example, a timezone where it is
@@ -92,7 +81,11 @@ var displayFeatureInfo = function(pixel) {
   }
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    info.tooltip('hide');
+    return;
+  }
   displayFeatureInfo(map.getEventPixel(evt.originalEvent));
 });
 

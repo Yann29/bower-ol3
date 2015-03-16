@@ -1,16 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.format.GPX');
-goog.require('ol.layer.Tile');
-goog.require('ol.layer.Vector');
-goog.require('ol.proj');
-goog.require('ol.source.BingMaps');
-goog.require('ol.source.GPX');
-goog.require('ol.style.Circle');
-goog.require('ol.style.Fill');
-goog.require('ol.style.Stroke');
-goog.require('ol.style.Style');
-
 var projection = ol.proj.get('EPSG:3857');
 
 var raster = new ol.layer.Tile({
@@ -85,7 +72,10 @@ var displayFeatureInfo = function(pixel) {
   }
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
   var pixel = map.getEventPixel(evt.originalEvent);
   displayFeatureInfo(pixel);
 });
@@ -105,12 +95,10 @@ if ('download' in exportGPXElement) {
         clone.getGeometry().transform(projection, 'EPSG:4326');
         features.push(clone);
       });
-      var node = new ol.format.GPX().writeFeatures(features);
-      var string = new XMLSerializer().serializeToString(
-          /** @type {Node} */ (node));
+      var string = new ol.format.GPX().writeFeatures(features);
       var base64 = exampleNS.strToBase64(string);
       exportGPXElement.href =
-          'data:gpx+xml;base64,' + base64;
+          'data:text/gpx+xml;base64,' + base64;
     }
   }, false);
 } else {

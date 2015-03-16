@@ -1,16 +1,3 @@
-goog.require('ol.Feature');
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.geom.LineString');
-goog.require('ol.geom.Point');
-goog.require('ol.layer.Vector');
-goog.require('ol.source.Vector');
-goog.require('ol.style.Circle');
-goog.require('ol.style.Fill');
-goog.require('ol.style.Stroke');
-goog.require('ol.style.Style');
-
-
 var count = 20000;
 var features = new Array(count);
 var e = 18000000;
@@ -83,7 +70,10 @@ var displaySnap = function(coordinate) {
   map.render();
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
   var coordinate = map.getEventCoordinate(evt.originalEvent);
   displaySnap(coordinate);
 });
@@ -116,13 +106,12 @@ map.on('postcompose', function(evt) {
   }
 });
 
-$(map.getViewport()).on('mousemove', function(e) {
-  var pixel = map.getEventPixel(e.originalEvent);
-
-  var hit = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-    return true;
-  });
-
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
+  var pixel = map.getEventPixel(evt.originalEvent);
+  var hit = map.hasFeatureAtPixel(pixel);
   if (hit) {
     map.getTarget().style.cursor = 'pointer';
   } else {

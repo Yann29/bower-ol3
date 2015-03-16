@@ -1,10 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.layer.Tile');
-goog.require('ol.proj');
-goog.require('ol.proj.Projection');
-goog.require('ol.source.Zoomify');
-
 // This server does not support CORS, and so is incompatible with WebGL.
 //var imgWidth = 8001;
 //var imgHeight = 6943;
@@ -45,6 +38,9 @@ var map = new ol.Map({
   view: new ol.View({
     projection: proj,
     center: imgCenter,
-    zoom: 0
+    zoom: 0,
+    // constrain the center: center cannot be set outside
+    // this extent
+    extent: [0, -imgHeight, imgWidth, 0]
   })
 });

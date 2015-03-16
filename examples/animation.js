@@ -1,12 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.animation');
-goog.require('ol.control');
-goog.require('ol.layer.Tile');
-goog.require('ol.proj');
-goog.require('ol.source.OSM');
-
-
 // from https://github.com/DmitryBaranovskiy/raphael
 function bounce(t) {
   var s = 7.5625, p = 2.75, l;
@@ -55,6 +46,9 @@ var map = new ol.Map({
     })
   ],
   renderer: exampleNS.getRendererFromQueryString(),
+  // Improve user experience by loading tiles while animating. Will make
+  // animations stutter on mobile or slow devices.
+  loadTilesWhileAnimating: true,
   target: 'map',
   controls: ol.control.defaults({
     attributionOptions: /** @type {olx.control.AttributionOptions} */ ({

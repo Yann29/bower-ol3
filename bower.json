@@ -1,6 +1,6 @@
 {
-  "name": "bower-ol3-v3.0.0",
-  "version": "3.0.0",
+  "name": "bower-ol3",
+  "version": "3.3.0",
   "description": "Open Layers 3",
   "main": [
 	"build/ol.js",

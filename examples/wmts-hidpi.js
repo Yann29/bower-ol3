@@ -1,11 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.has');
-goog.require('ol.layer.Tile');
-goog.require('ol.source.WMTS');
-goog.require('ol.tilegrid.WMTS');
-
-
 var template =
     '{Layer}/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg';
 var urls = [
@@ -29,7 +21,7 @@ var source = new ol.source.WMTS({
   style: 'normal',
   matrixSet: 'google3857',
   urls: urls,
-  requestEncoding: /** @type {ol.source.WMTSRequestEncoding} */ ('REST'),
+  requestEncoding: 'REST',
   tileGrid: new ol.tilegrid.WMTS({
     origin: [-20037508.3428, 20037508.3428],
     resolutions: [

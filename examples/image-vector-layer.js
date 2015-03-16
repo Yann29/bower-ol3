@@ -1,16 +1,3 @@
-goog.require('ol.FeatureOverlay');
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.layer.Image');
-goog.require('ol.layer.Tile');
-goog.require('ol.source.GeoJSON');
-goog.require('ol.source.ImageVector');
-goog.require('ol.source.MapQuest');
-goog.require('ol.style.Fill');
-goog.require('ol.style.Stroke');
-goog.require('ol.style.Style');
-
-
 var map = new ol.Map({
   layers: [
     new ol.layer.Tile({
@@ -80,7 +67,10 @@ var displayFeatureInfo = function(pixel) {
 
 };
 
-$(map.getViewport()).on('mousemove', function(evt) {
+map.on('pointermove', function(evt) {
+  if (evt.dragging) {
+    return;
+  }
   var pixel = map.getEventPixel(evt.originalEvent);
   displayFeatureInfo(pixel);
 });

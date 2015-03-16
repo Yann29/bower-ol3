@@ -1,10 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.layer.Tile');
-goog.require('ol.source.MapQuest');
-goog.require('ol.source.TileWMS');
-
-
 var layers = [
   new ol.layer.Tile({
     source: new ol.source.MapQuest({layer: 'sat'})
@@ -12,7 +5,7 @@ var layers = [
   new ol.layer.Tile({
     extent: [-13884991, 2870341, -7455066, 6338219],
     source: new ol.source.TileWMS(/** @type {olx.source.TileWMSOptions} */ ({
-      url: 'http://demo.opengeo.org/geoserver/wms',
+      url: 'http://demo.boundlessgeo.com/geoserver/wms',
       params: {'LAYERS': 'topp:states', 'TILED': true},
       serverType: 'geoserver'
     }))

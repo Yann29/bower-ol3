@@ -1,12 +1,3 @@
-goog.require('ol.Map');
-goog.require('ol.Overlay');
-goog.require('ol.View');
-goog.require('ol.coordinate');
-goog.require('ol.layer.Tile');
-goog.require('ol.proj');
-goog.require('ol.source.MapQuest');
-
-
 var layer = new ol.layer.Tile({
   source: new ol.source.MapQuest({layer: 'sat'})
 });
@@ -53,7 +44,7 @@ map.on('click', function(evt) {
 
   $(element).popover('destroy');
   popup.setPosition(coordinate);
-  // the keys are quoted to prevent renaming in ADVANCED_OPTIMIZATIONS mode.
+  // the keys are quoted to prevent renaming in ADVANCED mode.
   $(element).popover({
     'placement': 'top',
     'animation': false,

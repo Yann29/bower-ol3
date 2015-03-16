@@ -1,12 +1,3 @@
-goog.require('ol.Attribution');
-goog.require('ol.Map');
-goog.require('ol.View');
-goog.require('ol.control');
-goog.require('ol.layer.Tile');
-goog.require('ol.source.OSM');
-goog.require('ol.source.XYZ');
-
-
 var attribution = new ol.Attribution({
   html: 'Tiles &copy; <a href="http://maps.nls.uk/townplans/glasgow_1.html">' +
       'National Library of Scotland</a>'
@@ -27,7 +18,7 @@ var map = new ol.Map({
             html: 'Tiles &copy; <a href="http://www.opencyclemap.org/">' +
                 'OpenCycleMap</a>'
           }),
-          ol.source.OSM.DATA_ATTRIBUTION
+          ol.source.OSM.ATTRIBUTION
         ],
         url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
       })
